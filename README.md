@@ -20,9 +20,9 @@ This repository contains a working demo solution for **LAB 2: User Auth — Regi
   - Stores successful JWTs in `localStorage` under `cinescope_token`.
   - Re-throws request errors automatically by not catching them in the service, so pages can display API error messages.
 - React demo pages
-  - `/register` creates accounts and redirects to `/browse`.
+  - `/register` creates accounts, stores the returned token, and then shows a success nudge that links learners to `/login` so they test the login flow with their new credentials.
   - `/login` signs in existing users and redirects to `/browse`.
-  - `/browse` is a simple authenticated destination page for the lab demo.
+  - `/browse` is a simple authenticated destination page for the lab demo and includes a logout button that clears the saved token.
 
 ## Project structure
 
@@ -91,7 +91,8 @@ npm run client
 6. If the email is new, the backend hashes the password and creates the user.
 7. The backend signs a 7-day JWT containing `{ userId: user._id }`.
 8. The frontend stores the returned token as `localStorage.cinescope_token`.
-9. The page redirects to `/browse`.
+9. Instead of skipping ahead, the register page stays visible and shows a success message with a link to `/login`. This nudges learners to verify the second half of the lab by logging in with the credentials they just created.
+10. The login link passes the registered email in router state, so the login form can prefill the email field.
 
 ### Duplicate registration flow
 
@@ -111,6 +112,7 @@ npm run client
 7. If the credentials are correct, the backend signs and returns a JWT.
 8. The frontend stores the token as `localStorage.cinescope_token`.
 9. The page redirects to `/browse`.
+10. On `/browse`, the learner can click **Logout** to remove `localStorage.cinescope_token` and return to `/login`.
 
 ### Wrong password flow
 
@@ -155,9 +157,12 @@ npm run test:frontend
 The Cypress suite covers:
 
 1. Register page renders the name, email, password, and submit button.
-2. Successful registration stores `cinescope_token` and redirects to `/browse`.
-3. Duplicate registration displays `Email already registered`.
-4. Wrong-password login displays `Invalid credentials`.
+2. Successful registration stores `cinescope_token` and shows the login nudge link instead of redirecting directly to browse.
+3. The login nudge link opens `/login` and prefills the registered email.
+4. Successful login stores a login JWT and redirects to `/browse`.
+5. Logout removes `cinescope_token` and redirects to `/login`.
+6. Duplicate registration displays `Email already registered`.
+7. Wrong-password login displays `Invalid credentials`.
 
 ## Manual API checks
 

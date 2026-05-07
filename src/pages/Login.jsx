@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { loginUser } from '../services/authService';
 
 export default function Login() {
-  const [form, setForm] = useState({ email: '', password: '' });
+  const location = useLocation();
+  const [form, setForm] = useState({ email: location.state?.email || '', password: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -23,6 +24,11 @@ export default function Login() {
   return (
     <div className="auth-page">
       <h2>Welcome Back</h2>
+      {location.state?.email && (
+        <p data-testid="login-nudge-message" className="success-message">
+          Great! Now log in with the password you just created for {location.state.email}.
+        </p>
+      )}
       {error && <p data-testid="error-msg" className="error-message">{error}</p>}
       <form onSubmit={handleSubmit}>
         <input data-testid="email-input" name="email" value={form.email} onChange={handleChange} placeholder="Email" />
