@@ -1,3 +1,4 @@
+
 # CineScope MERN Lab 2: Authentication System — Register, Login, and JWT
 
 This repository contains a working demo solution for **LAB 2: User Auth — Register, Login & JWT**. It implements the backend Express/MongoDB authentication API and the frontend React auth service/forms that learners can run and test.
