@@ -1,0 +1,43 @@
+{
+  "name": "fullstack-integration-questions",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CineScope MERN Lab 2 authentication demo with JWT register/login flow.",
+  "main": "server.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon server.js",
+    "client": "vite --host 0.0.0.0",
+    "start": "node server.js",
+    "test:backend": "jest --runInBand",
+    "test:frontend": "cypress run",
+    "test": "npm run test:backend"
+  },
+  "dependencies": {
+    "axios": "latest",
+    "bcryptjs": "latest",
+    "cors": "latest",
+    "dotenv": "latest",
+    "express": "latest",
+    "jsonwebtoken": "latest",
+    "mongoose": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-router-dom": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "concurrently": "latest",
+    "cypress": "latest",
+    "jest": "latest",
+    "mongodb-memory-server": "latest",
+    "nodemon": "latest",
+    "supertest": "latest"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ]
+  }
+}
